@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TrackFlow</string>
+
+    <string name="body_measurement">BODY MEASUREMENTS</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <array name="select_gender">
+        <item>Select Gender</item>
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </array>
+
+    <array name="select_age">
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </array>
 </resources>
