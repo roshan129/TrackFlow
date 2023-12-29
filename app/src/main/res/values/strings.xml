@@ -4,6 +4,8 @@
     <string name="body_measurement">BODY MEASUREMENTS</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="gps_disabled">GPS is disabled</string>
+    <string name="missing_location_permission">GPS is disabled</string>
 
     <array name="select_gender">
         <item>Select Gender</item>

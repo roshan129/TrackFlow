@@ -112,6 +112,10 @@ dependencies {
     // Android Maps Compose composables for the Maps SDK for Android
     implementation("com.google.maps.android:maps-compose:4.3.0")
 
+    // Location services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
+    //timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
 }
