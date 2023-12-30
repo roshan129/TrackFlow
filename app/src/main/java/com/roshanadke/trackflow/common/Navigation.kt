@@ -16,7 +16,7 @@ fun Navigation(
     navController: NavHostController
 ) {
 
-    NavHost(navController = navController, startDestination = Screen.OnboardingScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.TrackScreen.route) {
         composable(Screen.OnboardingScreen.route) {
             OnboardingScreen(navController = navController)
         }
