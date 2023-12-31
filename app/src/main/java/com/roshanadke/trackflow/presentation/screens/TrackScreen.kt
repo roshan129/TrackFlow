@@ -1,5 +1,7 @@
 package com.roshanadke.trackflow.presentation.screens
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +26,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.roshanadke.trackflow.presentation.viewmodel.TrackViewModel
+import com.roshanadke.trackflow.services.TrackingService
 import timber.log.Timber
 
 @Composable
@@ -66,7 +69,10 @@ fun TrackScreen(
             Text(text = "TrackScreen")
 
             Button(onClick = {
-                viewModel.startLocationUpdates()
+                Intent(context, TrackingService::class.java).apply {
+                    action = TrackingService.ACTION_START
+                    context.startService(this)
+                }
                 Toast.makeText(context, "Started", Toast.LENGTH_SHORT).show()
 
             }) {
@@ -74,7 +80,11 @@ fun TrackScreen(
             }
 
             Button(onClick = {
-                viewModel.stopLocationUpdates()
+                //viewModel.stopLocationUpdates()
+                Intent(context, TrackingService::class.java).apply {
+                    action = TrackingService.ACTION_STOP
+                    context.startService(this)
+                }
                 Toast.makeText(context, "Stopped", Toast.LENGTH_SHORT).show()
 
             }) {

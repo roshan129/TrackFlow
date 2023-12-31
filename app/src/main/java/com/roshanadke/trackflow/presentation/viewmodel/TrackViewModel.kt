@@ -20,9 +20,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class TrackViewModel @Inject constructor(
-    private val locationClient: LocationClient
-) : ViewModel() {
+class TrackViewModel @Inject constructor() : ViewModel() {
 
     private val scope = CoroutineScope(viewModelScope.coroutineContext + Dispatchers.IO)
 
@@ -32,25 +30,6 @@ class TrackViewModel @Inject constructor(
     private var _polylineList: MutableState<List<LatLng>> = mutableStateOf(mutableListOf())
     val polylineList: State<List<LatLng>> = _polylineList
 
-    fun startLocationUpdates() {
-        locationClient.getLocationUpdates(2000L)
-            .catch { e -> e.printStackTrace() }
-            .onEach { location ->
-                val latLng = LatLng(location.latitude, location.longitude)
-                _locationUpdatesState.emit(location)
-                addLatLngToPolygonList(latLng)
-            }.launchIn(scope)
-    }
-
-    private fun addLatLngToPolygonList(newLatLng: LatLng) {
-        val currentPolygonList = _polylineList.value.toMutableList()
-        currentPolygonList.add(newLatLng)
-        _polylineList.value = currentPolygonList
-    }
-
-    fun stopLocationUpdates() {
-        locationClient.stopLocationUpdates()
-    }
 
     override fun onCleared() {
         super.onCleared()
