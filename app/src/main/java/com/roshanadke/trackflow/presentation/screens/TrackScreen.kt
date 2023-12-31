@@ -37,7 +37,7 @@ fun TrackScreen(
 
     val context = LocalContext.current
     val locationUpdates by viewModel.locationUpdatesState.collectAsState(initial = null)
-    val polylineList by viewModel.polylineList
+    val polylineList by TrackingService.polylineList
 
 
     val nashik = LatLng(19.949008, 73.768437)
@@ -80,7 +80,6 @@ fun TrackScreen(
             }
 
             Button(onClick = {
-                //viewModel.stopLocationUpdates()
                 Intent(context, TrackingService::class.java).apply {
                     action = TrackingService.ACTION_STOP
                     context.startService(this)

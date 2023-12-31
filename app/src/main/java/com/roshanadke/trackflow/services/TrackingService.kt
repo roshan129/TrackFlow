@@ -5,8 +5,11 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.roshanadke.trackflow.R
 import com.roshanadke.trackflow.common.Constants
 import com.roshanadke.trackflow.location.DefaultLocationClient
@@ -25,6 +28,16 @@ class TrackingService : Service() {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var locationClient: LocationClient
+
+
+    companion object {
+        const val ACTION_START = "ACTION_START"
+        const val ACTION_RESUME = "ACTION_RESUME"
+        const val ACTION_STOP = "ACTION_STOP"
+
+        val polylineList: MutableState<List<LatLng>> = mutableStateOf(mutableListOf())
+
+    }
 
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -64,7 +77,9 @@ class TrackingService : Service() {
             .onEach { location ->
                 val lat = location.latitude.toString().takeLast(3)
                 val lng = location.longitude.toString().takeLast(3)
-                Timber.d("start: location updates: $lat, $lng")
+                Timber.d("service: location updates: $lat, $lng")
+
+                addLatLngToPolygonList(LatLng(location.latitude, location.longitude))
 
                 val updatedNotification = notification.setContentText(
                     "Location: ($lat, $lng)"
@@ -81,16 +96,15 @@ class TrackingService : Service() {
         stopSelf()
     }
 
+    private fun addLatLngToPolygonList(newLatLng: LatLng) {
+        val currentPolygonList = polylineList.value.toMutableList()
+        currentPolygonList.add(newLatLng)
+        polylineList.value = currentPolygonList
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         serviceScope.cancel()
-    }
-
-
-    companion object {
-        const val ACTION_START = "ACTION_START"
-        const val ACTION_RESUME = "ACTION_RESUME"
-        const val ACTION_STOP = "ACTION_STOP"
     }
 
 }
