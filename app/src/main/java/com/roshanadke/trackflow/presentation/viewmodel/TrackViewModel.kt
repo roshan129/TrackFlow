@@ -20,12 +20,12 @@ class TrackViewModel @Inject constructor() : ViewModel() {
 
     private val scope = CoroutineScope(viewModelScope.coroutineContext + Dispatchers.IO)
 
-    private var _locationUpdatesState = MutableSharedFlow<Location>()
-    val locationUpdatesState: SharedFlow<Location> = _locationUpdatesState
+    private var _isTracking = mutableStateOf(false)
+    val isTracking = _isTracking
 
-    private var _polylineList: MutableState<List<LatLng>> = mutableStateOf(mutableListOf())
-    val polylineList: State<List<LatLng>> = _polylineList
-
+    fun setIsTracking(isTracking: Boolean) {
+        _isTracking.value = isTracking
+    }
 
     override fun onCleared() {
         super.onCleared()

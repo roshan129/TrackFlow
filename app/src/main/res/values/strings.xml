@@ -7,6 +7,9 @@
     <string name="gps_disabled">GPS is disabled</string>
     <string name="missing_location_permission">GPS is disabled</string>
     <string name="tracking_location">Tracking Location</string>
+    <string name="back">Tracking Location</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
 
     <array name="select_gender">
         <item>Select Gender</item>

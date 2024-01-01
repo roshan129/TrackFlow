@@ -62,7 +62,7 @@ class TrackingService : Service() {
     }
 
     private fun start() {
-        val notification = NotificationCompat.Builder(this, "location")
+        val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
             .setContentTitle(getString(R.string.tracking_location))
             .setContentText("Location: null")
             .setSmallIcon(R.drawable.ic_launcher_background)
